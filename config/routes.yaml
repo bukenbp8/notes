@@ -29,7 +29,7 @@ deleteNote:
   action: "deleteNote"
 
 editUser:
-  method: "GET"
+  method: "GET|POST"
   route: "/user/edit/[i:id]"
   controller: "AdminController"
   action: "editUser"
@@ -63,6 +63,36 @@ register:
   route: "/register"
   controller: "AuthController"
   action: "register"
+
+registerinfo:
+  method: "GET"
+  route: "/registerinfo"
+  controller: "AuthController"
+  action: "registerinfo"
+
+verify:
+  method: "GET"
+  route: "/verify/[i:id]/[a:key]"
+  controller: "AuthController"
+  action: "verify"
+
+retrieve:
+  method: "GET|POST"
+  route: "/retrieve/[i:id]/[a:key]"
+  controller: "AuthController"
+  action: "retrieve"
+
+forgottenpw:
+  method: "GET|POST"
+  route: "/forgottenpw"
+  controller: "AuthController"
+  action: "forgottenpw"
+
+pwinfo:
+  method: "GET"
+  route: "/pwinfo"
+  controller: "AuthController"
+  action: "pwinfo"
 
 restricted:
   method: "GET"

@@ -36,6 +36,11 @@ class Users extends Model
         return $this->findFirst(['conditions' => 'role = ?', 'bind' => [$role]]);
     }
 
+    public function getLastUser()
+    {
+        return $this->_db->query('SELECT * FROM users ORDER BY id DESC LIMIT ?', ['1'])->results();
+    }
+
     public static function currentLoggedInUser()
     {
         if (!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
@@ -89,6 +94,7 @@ class Users extends Model
         $this->assign($params);
         $this->deleted = 0;
         $this->role = 'User';
+        $this->token = substr(md5(mt_rand()), 0, 64);
         $this->email_verified = 0;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->save();

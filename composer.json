@@ -2,7 +2,8 @@
     "require": {
         "twig/twig": "^3.0",
         "altorouter/altorouter": "^2.0",
-        "symfony/yaml": "^5.1"
+        "symfony/yaml": "^5.1",
+        "swiftmailer/swiftmailer": "^6.2"
     },
     "autoload": {
         "classmap": [

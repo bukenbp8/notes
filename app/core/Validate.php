@@ -49,18 +49,10 @@ class Validate
                             break;
 
                         case 'unique_update':
-                            $t = explode(',', $rule_value);
-                            $table = $t[0];
-                            $id = $t[1];
-                            $query = $this->_db->query("SELECT * FROM {$table} WHERE id != ? AND {$item} = ?", [$id, $value]);
+                            $query = $this->_db->query("SELECT * FROM users WHERE id != ? AND {$item} = ?", $value);
+                            dnd($item);
                             if ($query->count()) {
                                 $this->addError(["{$display} already exists. Please choose another {$display}.", $item]);
-                            }
-                            break;
-
-                        case 'is_numeric':
-                            if (!is_numeric($value)) {
-                                $this->addError(["{$display} has to be a number. Please use a numeric value.", $item]);
                             }
                             break;
 
