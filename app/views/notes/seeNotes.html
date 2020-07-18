@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>See notes</h1>
+
+<div class="row justify-content-between">
+    {% for note in notes %}
+    <div class="card col-lg-3 card col-md-5 bg-warning mt-4 p-0">
+        <div class="card-body">
+            <h5 class="card-title">{{note.title}}</h5>
+            <p class="card-text">{{note.body}}</p>
+        </div>
+        <footer class="card-footer text-muted">Created at {{note.created_at|date("d.m.Y \\a\\t G:i")}}</footer>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
