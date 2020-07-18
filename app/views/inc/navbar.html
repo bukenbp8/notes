@@ -1,28 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">NotesApp</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Public Notes</a>
             </li>
             {% if loggedIn == true %}
-            <li class="nav-item">
-                <a class="nav-link" href="/publicNotes">Public Notes</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/privateNotes">Private Notes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/newNote">Notes+</a>
+                <a class="nav-link" href="/newNote">New Notes</a>
             </li>
             {% endif %}
         </ul>
     </div>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse navbarNav">
         <ul class="navbar-nav ml-auto">
             {% if admin == true %}
             <li class="nav-item mr-3">
@@ -38,6 +35,9 @@
             </li>
             {% endif %}
             {% if loggedIn == true %}
+            <li class="nav-item">
+                <a class="nav-link mr-3" href="/profile">Profile</a>
+            </li>
             <li class="nav-item">
                 <a class="btn btn-outline-danger" href="/logout">Logout</a>
             </li>

@@ -9,12 +9,17 @@ class Notes extends Model
         parent::__construct($table);
     }
 
-    public function createNewNote($params)
+    public function createNote($params)
     {
         $user = (array)Users::currentLoggedInUser();
         $this->user_id = $user['id'];
         $this->assign($params);
         $this->save();
+    }
+
+    public function deleteNote($id)
+    {
+        return $this->_db->query('DELETE FROM notes WHERE id = ?', [$id]);
     }
 
     public function findNoteById($id)
@@ -32,10 +37,5 @@ class Notes extends Model
         $user = (array)currentUser();
 
         return $this->_db->query('SELECT * FROM users INNER JOIN notes ON users.id = notes.user_id WHERE notes.public = ? AND user_id = ?', ['0', $user['id']])->results();
-    }
-
-    public function deleteNote($id)
-    {
-        return $this->_db->query('DELETE FROM notes WHERE id = ?', [$id]);
     }
 }

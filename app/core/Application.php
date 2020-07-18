@@ -16,6 +16,9 @@ class Application
 
         if (currentUser()) {
             $user = (array)currentUser();
+
+            $userId = $user['id'];
+
             if ($user['role'] == 'Admin') {
                 $admin = true;
             } else {
@@ -23,6 +26,8 @@ class Application
             }
         } else {
             $admin = false;
+
+            $userId = false;
         }
 
         $loader = new \Twig\Loader\FilesystemLoader(
@@ -32,11 +37,13 @@ class Application
                 'app/views/restricted',
                 'app/views/inc',
                 'app/views/notes',
-                'app/views/dashboard'
+                'app/views/dashboard',
+                'app/views/profile'
             ]
         );
         $this->twig = new \Twig\Environment($loader);
         $this->twig->addGlobal('loggedIn', $loggedIn);
+        $this->twig->addGlobal('userId', $userId);
         $this->twig->addGlobal('admin', $admin);
     }
 

@@ -56,6 +56,7 @@ class ComposerStaticInitd925a651ffdd368206a3da16c0df6e8f
         'Model' => __DIR__ . '/../..' . '/app/core/Model.php',
         'Notes' => __DIR__ . '/../..' . '/app/models/Notes.php',
         'NotesController' => __DIR__ . '/../..' . '/app/controllers/NotesController.php',
+        'ProfileController' => __DIR__ . '/../..' . '/app/controllers/ProfileController.php',
         'RestrictedController' => __DIR__ . '/../..' . '/app/controllers/RestrictedController.php',
         'Router' => __DIR__ . '/../..' . '/app/core/Router.php',
         'Session' => __DIR__ . '/../..' . '/app/core/Session.php',

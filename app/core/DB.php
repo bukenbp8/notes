@@ -145,11 +145,11 @@ class DB
             $fieldString .= ' ' . $field . ' = ?,';
             $values[] = $value;
         }
-        $values = array_pop($id);
 
         $fieldString = trim($fieldString);
         $fieldString = rtrim($fieldString, ',');
 
+        array_push($values, $id);
 
         $sql = "UPDATE {$table} SET {$fieldString} WHERE id = ?";
         if (!$this->query($sql, $values)->error()) {
@@ -160,8 +160,10 @@ class DB
 
     public function delete($table, $id)
     {
-        $sql = "DELETE FROM {$table} WHERE id = {$id}";
-        if (!$this->query($sql)->error()) {
+        $sql = "DELETE FROM {$table} WHERE id = ?";
+        $value = [];
+        array_push($value, $id);
+        if (!$this->query($sql, $value)->error()) {
             return true;
         }
         return false;

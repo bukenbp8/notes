@@ -17,6 +17,7 @@ return array(
     'Model' => $baseDir . '/app/core/Model.php',
     'Notes' => $baseDir . '/app/models/Notes.php',
     'NotesController' => $baseDir . '/app/controllers/NotesController.php',
+    'ProfileController' => $baseDir . '/app/controllers/ProfileController.php',
     'RestrictedController' => $baseDir . '/app/controllers/RestrictedController.php',
     'Router' => $baseDir . '/app/core/Router.php',
     'Session' => $baseDir . '/app/core/Session.php',

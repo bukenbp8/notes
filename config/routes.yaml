@@ -2,19 +2,13 @@ default:
   method: "GET"
   route: "/"
   controller: "HomeController"
-  action: "index"
+  action: "publicNotes"
   
 newNote:
   method: "GET|POST"
   route: "/newNote"
   controller: "NotesController"
   action: "newNote"
-
-publicNotes:
-  method: "GET"
-  route: "/publicNotes"
-  controller: "NotesController"
-  action: "publicNotes"
 
 privateNotes:
   method: "GET"
@@ -49,7 +43,7 @@ deleteUser:
 fourOFour:
   method: "GET"
   route: "/404"
-  controller: "HomeController"
+  controller: "AuthController"
   action: "fourOFour"
 
 login:
@@ -75,6 +69,18 @@ restricted:
   route: "/restricted"
   controller: "RestrictedController"
   action: "restricted"
+
+profile:
+  method: "GET"
+  route: "/profile"
+  controller: "ProfileController"
+  action: "profile"
+
+deleteAccount:
+  method: "GET"
+  route: "/deleteAccount/[i:id]"
+  controller: "ProfileController"
+  action: "deleteAccount"
 
 dashboard:
   method: "GET"

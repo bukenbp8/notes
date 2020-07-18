@@ -71,7 +71,8 @@ class AuthController extends Application
                 'email' => [
                     'display' => 'Email',
                     'required' => true,
-                    'valid_email' => true
+                    'valid_email' => true,
+                    'unique' => 'email'
                 ],
                 'password' => [
                     'display' => 'Password',
@@ -98,5 +99,10 @@ class AuthController extends Application
         }
 
         echo $this->twig->render('auth/register.html', ['errorMsg' => $errorMsg, 'value' => $posted_values]);
+    }
+
+    public function fourOFour()
+    {
+        echo $this->twig->display('404.html');
     }
 }

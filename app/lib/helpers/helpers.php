@@ -26,3 +26,8 @@ function posted_values($post)
     }
     return $clean_array;
 }
+
+function makeArray($obj)
+{
+    return json_decode(json_encode($obj), true);
+}

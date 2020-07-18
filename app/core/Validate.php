@@ -42,7 +42,7 @@ class Validate
                             break;
 
                         case 'unique':
-                            $check = $this->_db->query('SELECT {$item} FROM {$rule_value} WHERE {$item} = ?', [$value]);
+                            $check = $this->_db->query("SELECT {$item} FROM users WHERE {$item} = ?", [$value]);
                             if ($check->count()) {
                                 $this->addError(["{$display} already exists. Please choose another {$display}", $item]);
                             }

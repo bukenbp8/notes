@@ -5,15 +5,15 @@ class HomeController extends Application
     public function __construct()
     {
         $this->loadTwig();
+        $this->load_model('Notes');
     }
 
-    public function index()
+    public function publicNotes()
     {
-        echo $this->twig->display('welcome.html');
-    }
+        $notes = $this->NotesModel->showPublicNotes();
 
-    public function fourOFour()
-    {
-        echo $this->twig->display('404.html');
+        $title = 'Public Notes';
+
+        echo $this->twig->render('/notes/notes.html', ['notes' => $notes, 'title' => $title]);
     }
 }
