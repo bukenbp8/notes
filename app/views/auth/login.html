@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="col-md-6 card mx-auto p-5 bg-light">
+    <h3>Login</h3>
+    {% if errorMsg %}
+    {% for err in errorMsg %}
+    <div class="alert alert-danger" role="alert">
+        <li>{{ err[0] }}</li>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form action="login" method="post" class="form">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="Password" name="password" id="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="remember_me">Remember Me <input type="checkbox" name="remember me" id="remember_me"
+                    value="on"></label>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Login" class="btn btn-primary">
+    </form>
+</div>
+
+{% endblock %}

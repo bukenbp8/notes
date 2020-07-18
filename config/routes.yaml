@@ -1,0 +1,86 @@
+default:
+  method: "GET"
+  route: "/"
+  controller: "HomeController"
+  action: "index"
+  
+newNote:
+  method: "GET|POST"
+  route: "/newNote"
+  controller: "NotesController"
+  action: "newNote"
+
+publicNotes:
+  method: "GET"
+  route: "/publicNotes"
+  controller: "NotesController"
+  action: "publicNotes"
+
+privateNotes:
+  method: "GET"
+  route: "/privateNotes"
+  controller: "NotesController"
+  action: "privateNotes"
+
+editNote:
+  method: "GET|POST"
+  route: "/editNote/[i:id]"
+  controller: "NotesController"
+  action: "editNote"
+
+deleteNote:
+  method: "GET"
+  route: "/deleteNote/[i:id]"
+  controller: "NotesController"
+  action: "deleteNote"
+
+editUser:
+  method: "GET"
+  route: "/user/edit/[i:id]"
+  controller: "AdminController"
+  action: "editUser"
+
+deleteUser:
+  method: "GET"
+  route: "/user/delete/[i:id]"
+  controller: "AdminController"
+  action: "deleteUser"
+
+fourOFour:
+  method: "GET"
+  route: "/404"
+  controller: "HomeController"
+  action: "fourOFour"
+
+login:
+  method: "GET|POST"
+  route: "/login"
+  controller: "AuthController"
+  action: "login"
+
+logout:
+  method: "GET|POST"
+  route: "/logout"
+  controller: "AuthController"
+  action: "logout"
+
+register:
+  method: "GET|POST"
+  route: "/register"
+  controller: "AuthController"
+  action: "register"
+
+restricted:
+  method: "GET"
+  route: "/restricted"
+  controller: "RestrictedController"
+  action: "restricted"
+
+dashboard:
+  method: "GET"
+  route: "/dashboard"
+  controller: "AdminController"
+  action: "dashboard"
+
+
+

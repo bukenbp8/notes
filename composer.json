@@ -1,0 +1,14 @@
+{
+    "require": {
+        "twig/twig": "^3.0",
+        "altorouter/altorouter": "^2.0",
+        "symfony/yaml": "^5.1"
+    },
+    "autoload": {
+        "classmap": [
+            "app/controllers",
+            "app/core",
+            "app/models"
+        ]
+    }
+}
