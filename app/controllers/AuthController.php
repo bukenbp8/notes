@@ -92,7 +92,7 @@ class AuthController extends Application
                 $newUser->registerNewUser($posted_values);
                 $u = makeArray($this->UsersModel->getLastUser());
                 $this->EmailModel->registrationEmail($u[0]['email'], $u[0]['fname'], $u[0]['lname'], $u[0]['id'], $u[0]['token']);
-                header('Location: /regComplete');
+                header('Location: /registerinfo');
             } else {
                 $errorMsg = $validation->errors();
             }
@@ -149,10 +149,11 @@ class AuthController extends Application
                     ]
                 ]);
                 if ($validation->passed()) {
-                    $this->UsersModel->update(['password' => $posted_values['password']], $id);
-                    // new token makes retrival link useless
-                    $newToken = substr(md5(mt_rand()), 0, 64);
-                    $this->UsersModel->update(['token' => $newToken], $id);
+                    $newPW = password_hash($posted_values['password'], PASSWORD_DEFAULT);
+                    // new token makes retrival link useless after giving a new pw
+                    $newToken = bin2hex(random_bytes(16));
+                    $this->UsersModel->update(['password' => $newPW, 'token' => $newToken], $id);
+
                     header('Location: /login');
                 } else {
                     $errorMsg = $validation->errors();

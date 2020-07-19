@@ -94,7 +94,7 @@ class Users extends Model
         $this->assign($params);
         $this->deleted = 0;
         $this->role = 'User';
-        $this->token = substr(md5(mt_rand()), 0, 64);
+        $this->token = bin2hex(random_bytes(16));
         $this->email_verified = 0;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->save();
