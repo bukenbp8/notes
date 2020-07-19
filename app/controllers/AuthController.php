@@ -18,11 +18,13 @@ class AuthController extends Application
                 'email' => [
                     'display' => 'Email',
                     'required' => true,
-                    'valid_email' => true
+                    'valid_email' => true,
+                    'must_exist' => 'email'
                 ],
                 'password' => [
                     'display' => 'Password',
-                    'required' => true
+                    'required' => true,
+                    'wrongPw' => 'password'
                 ]
             ]);
             if ($validation->passed()) {
@@ -123,12 +125,13 @@ class AuthController extends Application
         }
     }
 
-    public function retrieve($id, $key)
+    public function resetPassword($id, $key)
     {
         $user = $this->UsersModel->findById($id);
         $u = makeArray($user);
 
-        if ($key == $u['token']) {
+        // token from email must match token from the database && the email can't be older than an hour
+        if ($key == $u['token'] && !($u['retrieval_time'] >= ($u['retrieval_time']) + 3600)) {
 
             $validation = new Validate();
             $posted_values = ['password' => '', 'confirm' => ''];
@@ -165,7 +168,7 @@ class AuthController extends Application
             }
 
 
-            echo $this->twig->display('auth/retrieve.html', ['errorMsg' => $errorMsg]);
+            echo $this->twig->display('auth/reset.html', ['errorMsg' => $errorMsg]);
         } else {
             header('Location: /restricted');
         }
@@ -195,11 +198,14 @@ class AuthController extends Application
                     'display' => 'Email',
                     'required' => true,
                     'valid_email' => true,
+                    'must_exist' => 'email'
                 ]
             ]);
             if ($validation->passed()) {
-                $user = makeArray($this->UsersModel->findByEmail($posted_values['email']));
-                $this->EmailModel->retrievePW($user['email'], $user['fname'], $user['lname'], $user['id'], $user['token']);
+                $user = $this->UsersModel->findByEmail($posted_values['email']);
+                $u = makeArray($user);
+                $user->update(['retrieval_time' => time()], $u['id']);
+                $this->EmailModel->resetPW($u['email'], $u['fname'], $u['lname'], $u['id'], $u['token']);
                 header('Location: /pwinfo');
             } else {
                 $errorMsg = $validation->errors();

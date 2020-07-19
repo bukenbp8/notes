@@ -2,15 +2,15 @@
 
 {% block content %}
 
-<div class="col-md-6 card bg-light p-5 mb-4 mx-auto">
+<div class="col-md-6 card shadow bg-light p-5 mb-4 mx-auto">
     <form action="#" method="post" class="form">
-        <h3>Change password</h3>
+        <h3>Reset password</h3>
         {% if errorMsg %}
-        {% for err in errorMsg %}
         <div class="alert alert-danger" role="alert">
-            <li>{{ err[0] }}</li>
+            {% for err in errorMsg %}
+            <li class="ml-2">{{ err[0] }}</li>
+            {% endfor %}
         </div>
-        {% endfor %}
         {% endif %}
         <div class="form-group">
             <label for="password">New password</label>

@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="col-md-6 card mx-auto p-5 bg-light">
+<div class="col-md-6 card shadow mx-auto p-5 bg-light">
     <h3>Login</h3>
     {% if errorMsg %}
-    {% for err in errorMsg %}
     <div class="alert alert-danger" role="alert">
-        <li>{{ err[0] }}</li>
+        {% for err in errorMsg %}
+        <li class="ml-2">{{ err[0] }}</li>
+        {% endfor %}
     </div>
-    {% endfor %}
     {% endif %}
     <form action="#" method="post" class="form">
         <div class="form-group">

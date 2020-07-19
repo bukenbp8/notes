@@ -66,5 +66,6 @@ class AdminController extends Application
     public function deleteUser($id)
     {
         $this->UsersModel->delete($id);
+        header('Location: /dashboard');
     }
 }

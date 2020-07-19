@@ -58,7 +58,7 @@ class NotesController extends Application
         $thisPost = makeArray($p[0]);
         $user = makeArray(currentUser());
 
-        if ($thisPost['user_id'] == $user['id']) {
+        if ($thisPost['user_id'] == $user['id'] || ($user['role'] == 'Admin' && $thisPost['public'] == '1')) {
 
             $validation = new Validate();
             $posted_values = ['title' => '', 'body' => ''];
@@ -105,11 +105,11 @@ class NotesController extends Application
     public function deleteNote($id)
     {
 
-        $p = $this->NotesModel->findNoteById($id);
-        $thisPost = makeArray($p[0]);
+        $n = $this->NotesModel->findNoteById($id);
+        $thisPost = makeArray($n[0]);
         $user = makeArray(currentUser());
 
-        if ($thisPost['user_id'] == $user['id']) {
+        if ($thisPost['user_id'] == $user['id'] || ($user['role'] == 'Admin' && $thisPost['public'] == '1')) {
             $location = ($thisPost['public'] == 0) ? 'privateNotes' : '';
             $this->NotesModel->deleteNote($id);
             header("Location: /{$location}");

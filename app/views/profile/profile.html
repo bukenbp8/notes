@@ -1,47 +1,99 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1 class="mb-5">Profile Page</h1>
+<h1 class="mb-4">Profile Page</h1>
 
-<h3 class="mb-4">Hello {{ user.fname}} {{ user.lname}}!</h3>
+<h2 class="mb-4">Hello {{ user.fname}} {{ user.lname}}</h2>
 
 <div class="row">
-    <div class="col-md-6 card bg-light p-3 mb-4">
-        <form action="#" method="post" class="form">
-            <h3>Change email address</h3>
-            <div class="form-group">
-                <label for="email">New email</label>
-                <input type="email" name="email" id="email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="confirm">Confirm new email</label>
-                <input type="email" name="confirm" id="confirm" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+    <div class="col-md-6">
+        <div class="col-md-12 card shadow bg-light p-3 mb-4">
+            <form action="#" method="post" class="form">
+                <h3>Change email address</h3>
+                {% if errorEmail %}
+                <div class="alert alert-danger" role="alert">
+                    {% for err in errorEmail %}
+                    <li class="ml-2">{{ err[0] }}</li>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
-    <div class="col-md-6 card bg-light p-3 mb-4">
-        <form action="#" method="post" class="form">
-            <h3>Change password</h3>
-            <div class="form-group">
-                <label for="password">New password</label>
-                <input type="password" name="password" id="password" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm password</label>
-                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+                {% if emailMsg %}
+                <div class="alert alert-success" role="alert">
+                    {{ emailMsg }}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="email">New email</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="confirm">Confirm new email</label>
+                    <input type="email" name="confirm" id="confirm" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-12 card shadow bg-light p-3 mb-4">
+            <form action="#" method="post" class="form">
+                <h3>Change password</h3>
+                {% if errorPw %}
+                <div class="alert alert-danger" role="alert">
+                    {% for err in errorPw %}
+                    <li class="ml-2">{{ err[0] }}</li>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if pwMsg %}
+                <div class="alert alert-success" role="alert">
+                    {{ pwMsg }}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="password">New password</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" name="confirm" id="confirm" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger shadow col-md-12">
+            <h3>Delete Account</h3>
+            <p>Do you really want do delete your account?</p>
+            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</a>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="alert alert-danger col-md-6">
-        <h3>Delete Account</h3>
-        <p>Do you really want do delete your account?</p>
-        <a href="/deleteAccount/{{ user.id }}" class="btn btn-danger">Delete</a>
+
+
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Delete Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font-weight-bold">Do you really want to delete your Account?</p>
+                <p>All your notes will be lost.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/deleteAccount/{{ user.id }}" class="btn btn-danger">Yes, delete it!</a>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -48,6 +48,13 @@ class Validate
                             }
                             break;
 
+                        case 'must_exist':
+                            $check = $this->_db->query("SELECT {$item} FROM users WHERE {$item} = ?", [$value]);
+                            if (!$check->count()) {
+                                $this->addError(["This {$display} doesn't exists in the database.", $item]);
+                            }
+                            break;
+
                         case 'unique_update':
                             $query = $this->_db->query("SELECT * FROM users WHERE id != ? AND {$item} = ?", $value);
                             dnd($item);

@@ -3,26 +3,54 @@
 {% block content %}
 <h1>{{title}}</h1>
 
-<div class="row justify-content-between">
+<div class="row">
     {% for note in notes %}
-    <div class="card card col-md-5 bg-warning mt-4 p-0">
-        <div class="card-body">
-            <div class="row justify-content-between pl-3 pr-3">
-                <h5 class="card-title">{{note.title}}</h5>
-                {% if userId == note.user_id %}
-                <span class="h4">
-                    <a href="/editNote/{{note.id}}"><i class="fa fa-edit text-dark mr-2" aria-hidden="true"></i></a>
-                    <a href="/deleteNote/{{note.id}}"><i class="fa fa-trash text-dark" aria-hidden="true"></i></a>
-                </span>
-                {% endif %}
-            </div>
+    <div class="col-xl-4 col-md-6">
+        <div class="card shadow col-md-12 bg-warning mt-4 p-0">
+            <div class="card-body">
+                <div class="row justify-content-between pl-3 pr-3">
+                    <h5 class="card-title" style="font-weight: 600;">{{note.title}}</h5>
+                    {% if (userId == note.user_id) or (admin) %}
+                    <span class="h4">
+                        <a href="/editNote/{{note.id}}"><i class="fa fa-edit text-dark mr-2" aria-hidden="true"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#delete{{ note.id }}"><i
+                                class="fa fa-trash text-dark" aria-hidden="true"></i></a>
+                    </span>
+                    {% endif %}
+                </div>
 
-            <p class="card-text">{{note.body}}</p>
+                <p class="card-text">{{note.body}}</p>
+            </div>
+            <footer class="card-footer text-muted small">Created {{note.created_at|date("d.m.Y \\a\\t G:i")}} by
+                {{note.fname}}
+                {{note.lname}}
+            </footer>
         </div>
-        <footer class="card-footer text-muted small">Created {{note.created_at|date("d.m.Y \\a\\t G:i")}} by
-            {{note.fname}}
-            {{note.lname}}</footer>
     </div>
+
+    <!-- modal -->
+
+    <div class="modal fade" id="delete{{ note.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold">Delete Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="font-weight-bold">Do you really want to delete this note?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="/deleteNote/{{note.id}}" class="btn btn-danger">Yes, delete it!</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     {% endfor %}
 </div>
 {% endblock %}

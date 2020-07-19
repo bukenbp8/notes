@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="col-md-6 card mx-auto p-5 bg-light">
+<div class="col-md-6 card shadow mx-auto p-5 bg-light">
     <h3>{{ title }}</h3>
 
     {% if errorMsg %}
-    {% for err in errorMsg %}
     <div class="alert alert-danger" role="alert">
-        <li>{{ err[0] }}</li>
+        {% for err in errorMsg %}
+        <li class="ml-2">{{ err[0] }}</li>
+        {% endfor %}
     </div>
-    {% endfor %}
     {% endif %}
 
     <form action="{{ action }}" method="post" class="form">
@@ -22,11 +22,13 @@
                 rows="7">{{ note.body }}</textarea>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="public" value="1" id="inlineRadio1">
+            <input class="form-check-input" type="radio" name="public" value="1" id="inlineRadio1"
+                {% if note.public == 1 %}checked{% endif %}>
             <label class="form-check-label" for="inlineRadio1">Public</label>
         </div>
         <div class="form-check form-check-inline mb-3">
-            <input class="form-check-input" type="radio" name="public" value="0" id="inlineRadio2" checked>
+            <input class="form-check-input" type="radio" name="public" value="0" id="inlineRadio2"
+                {% if note.public == 0 %}checked{% endif %}>
             <label class="form-check-label" for="inlineRadio2">Private</label>
         </div>
         <div class="form-group">

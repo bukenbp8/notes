@@ -2,7 +2,7 @@
 
 class Email
 {
-    public $transport, $mailer;
+    public $transport, $mailer, $base_url = BASE_URL;
 
     public function __construct()
     {
@@ -23,13 +23,13 @@ class Email
             Thank you for your registration! 
             <br><br>
             Please verify your account by using the provided link: 
-            <a href='http://localhost:8000/verify/{$id}/{$token}'>Click here.</a>", 'text/html');
+            <a href='{$this->base_url}/verify/{$id}/{$token}'>Click here.</a>", 'text/html');
         $this->mailer->send($msg);
     }
 
-    public function retrievePW($email, $fname, $lname, $id, $token)
+    public function resetPW($email, $fname, $lname, $id, $token)
     {
-        $msg = new Swift_Message('Retrieve Password - NotesApp');
+        $msg = new Swift_Message('Reset Password - NotesApp');
         $msg->setFrom(['test@test.com' => 'Administrator'])
             ->setTo([$email => "{$fname} {$lname}"])
             ->setBody("
@@ -37,7 +37,9 @@ class Email
             <br><br>
             
             Here is the link for resetting your password: 
-            <a href='http://localhost:8000/retrieve/{$id}/{$token}'>Click here.</a>", 'text/html');
+            <a href='{$this->base_url}/reset/{$id}/{$token}'>Click here.</a>
+            <br><br>
+            This link is valid for 1 hour.", 'text/html');
         $this->mailer->send($msg);
     }
 }

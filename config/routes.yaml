@@ -76,11 +76,11 @@ verify:
   controller: "AuthController"
   action: "verify"
 
-retrieve:
+resetPassword:
   method: "GET|POST"
-  route: "/retrieve/[i:id]/[a:key]"
+  route: "/reset/[i:id]/[a:key]"
   controller: "AuthController"
-  action: "retrieve"
+  action: "resetPassword"
 
 forgottenpw:
   method: "GET|POST"
@@ -101,7 +101,7 @@ restricted:
   action: "restricted"
 
 profile:
-  method: "GET"
+  method: "GET|POST"
   route: "/profile"
   controller: "ProfileController"
   action: "profile"
