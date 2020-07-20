@@ -15,9 +15,8 @@ class NotesController extends Application
 
     public function newNote()
     {
-        $validation = new Validate();
-        $posted_values = ['title' => '', 'body' => ''];
         if ($_POST) {
+            $validation = new Validate();
             $posted_values = posted_values($_POST);
             $validation->check($_POST, [
                 'title' => [
@@ -47,9 +46,7 @@ class NotesController extends Application
 
         $title = "New Note";
 
-        $action = 'newNote';
-
-        echo $this->twig->render('/notes/newNote.html', ['errorMsg' => $errorMsg, 'title' => $title, 'action' => $action]);
+        echo $this->twig->render('/notes/newNote.html', ['errorMsg' => $errorMsg, 'title' => $title]);
     }
 
     public function editNote($id)
@@ -58,12 +55,11 @@ class NotesController extends Application
         $thisPost = makeArray($p[0]);
         $user = makeArray(currentUser());
 
-        if ($thisPost['user_id'] == $user['id'] || ($user['role'] == 'Admin' && $thisPost['public'] == '1')) {
-
-            $validation = new Validate();
-            $posted_values = ['title' => '', 'body' => ''];
+        //only the creater of notes can edit
+        if ($thisPost['user_id'] == $user['id']) {
 
             if ($_POST) {
+                $validation = new Validate();
                 $posted_values = posted_values($_POST);
                 $validation->check($_POST, [
                     'title' => [
@@ -94,9 +90,7 @@ class NotesController extends Application
 
             $title = 'Edit Note';
 
-            $action = '#';
-
-            echo $this->twig->render('/notes/newNote.html', ['note' => $note, 'errorMsg' => $errorMsg, 'action' => $action, 'title' => $title]);
+            echo $this->twig->render('/notes/newNote.html', ['note' => $note, 'errorMsg' => $errorMsg, 'title' => $title]);
         } else {
             header("Location: /restricted");
         }
@@ -109,7 +103,8 @@ class NotesController extends Application
         $thisPost = makeArray($n[0]);
         $user = makeArray(currentUser());
 
-        if ($thisPost['user_id'] == $user['id'] || ($user['role'] == 'Admin' && $thisPost['public'] == '1')) {
+        //only the creater of notes can delete
+        if ($thisPost['user_id'] == $user['id']) {
             $location = ($thisPost['public'] == 0) ? 'privateNotes' : '';
             $this->NotesModel->deleteNote($id);
             header("Location: /{$location}");

@@ -16,6 +16,7 @@ class AdminController extends Application
 
     public function dashboard()
     {
+        // grabs all users
         $users = $this->UsersModel->find();
 
         echo $this->twig->render('/dashboard/dashboard.html', ['users' => $users]);
@@ -25,11 +26,8 @@ class AdminController extends Application
     {
         $user = $this->UsersModel->findById($id);
 
-        $validation = new Validate();
-
-        $posted_values = ['fname' => '', 'lname' => '', 'email' => ''];
-
         if ($_POST) {
+            $validation = new Validate();
             $posted_values = posted_values($_POST);
             $validation->check($_POST, [
                 'fname' => [

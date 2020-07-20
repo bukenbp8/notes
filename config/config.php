@@ -17,4 +17,4 @@ define("EMAIL_PWD", "vhtbcdzfwddgbopg");
 // cookie and session name
 define("CURRENT_USER_SESSION_NAME", "sdfASDF643DFdfd64DFfdf45FHGjtr");
 define("REMEMBER_ME_COOKIE_NAME", "KJKJ346456kjdkfjkj8473");
-define("REMEMBER_ME_COOKIE_EXPIRE", 99999);
+define("REMEMBER_ME_COOKIE_EXPIRE", 3600 * 4);

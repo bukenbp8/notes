@@ -54,7 +54,7 @@ class Users extends Model
     {
         Session::set($this->_sessionName, $this->id);
         if ($rememberMe) {
-            $hash = md5(uniqid() + rand(0, 100));
+            $hash = bin2hex(random_bytes(64));
             $user_agent = Session::uagent_no_version();
             Cookie::set($this->_cookieName, $hash, REMEMBER_ME_COOKIE_EXPIRE);
             $fields = ['session' => $hash, 'user_agent' => $user_agent, 'user_id' => $this->id];

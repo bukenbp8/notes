@@ -22,8 +22,6 @@ class ProfileController extends Application
         if (isset($_POST['email'])) {
 
             $validation = new Validate();
-            $posted_values = ['email' => '', 'confirm' => ''];
-
             $posted_values = posted_values($_POST);
             $validation->check($_POST, [
                 'email' => [
@@ -45,7 +43,7 @@ class ProfileController extends Application
                 $emailMsg = 'Your email was changed';
             } else {
                 $errorEmail = $validation->errors();
-                $emailEmail = '';
+                $emailMsg = '';
             }
         }
 
@@ -53,8 +51,6 @@ class ProfileController extends Application
         if (isset($_POST['password'])) {
 
             $validation = new Validate();
-            $posted_values = ['password' => '', 'confirm' => ''];
-
             $posted_values = posted_values($_POST);
             $validation->check($_POST, [
                 'password' => [

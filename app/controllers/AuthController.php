@@ -12,8 +12,8 @@ class AuthController extends Application
 
     public function login()
     {
-        $validation = new Validate();
         if ($_POST) {
+            $validation = new Validate();
             $validation->check($_POST, [
                 'email' => [
                     'display' => 'Email',
@@ -57,9 +57,8 @@ class AuthController extends Application
 
     public function register()
     {
-        $validation = new Validate();
-        $posted_values = ['fname' => '', 'lname' => '', 'email' => '', 'password' => '', 'confirm' => ''];
         if ($_POST) {
+            $validation = new Validate();
             $posted_values = posted_values($_POST);
             $validation->check($_POST, [
                 'fname' => [
@@ -107,11 +106,17 @@ class AuthController extends Application
         echo $this->twig->render('auth/register.html', ['errorMsg' => $errorMsg, 'value' => $posted_values]);
     }
 
+    public function registerinfo()
+    {
+        echo $this->twig->display('auth/registerinfo.html');
+    }
+
     public function fourOFour()
     {
         echo $this->twig->display('404.html');
     }
 
+    // user email verification 
     public function verify($id, $key)
     {
         $user = $this->UsersModel->findById($id);
@@ -133,10 +138,8 @@ class AuthController extends Application
         // token from email must match token from the database && the email can't be older than an hour
         if ($key == $u['token'] && !($u['retrieval_time'] >= ($u['retrieval_time']) + 3600)) {
 
-            $validation = new Validate();
-            $posted_values = ['password' => '', 'confirm' => ''];
-
             if ($_POST) {
+                $validation = new Validate();
                 $posted_values = posted_values($_POST);
 
                 $validation->check($_POST, [
@@ -166,19 +169,10 @@ class AuthController extends Application
             if (!isset($errorMsg)) {
                 $errorMsg = [];
             }
-
-
             echo $this->twig->display('auth/reset.html', ['errorMsg' => $errorMsg]);
         } else {
             header('Location: /restricted');
         }
-    }
-
-    public function registerinfo()
-    {
-        $title = 'Registration success!';
-        $info = 'We sent you an email with a verification link. Please click on it to be able to login.';
-        echo $this->twig->display('auth/registerinfo.html', ['title' => $title, 'info' => $info]);
     }
 
     public function pwinfo()
@@ -188,10 +182,8 @@ class AuthController extends Application
 
     public function forgottenpw()
     {
-        $validation = new Validate();
-        $posted_values = ['email' => ''];
-
         if ($_POST) {
+            $validation = new Validate();
             $posted_values = posted_values($_POST);
             $validation->check($_POST, [
                 'email' => [

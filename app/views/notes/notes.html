@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="row justify-content-between pl-3 pr-3">
                     <h5 class="card-title" style="font-weight: 600;">{{note.title}}</h5>
-                    {% if (userId == note.user_id) or (admin) %}
+                    {% if userId == note.user_id %}
                     <span class="h4">
                         <a href="/editNote/{{note.id}}"><i class="fa fa-edit text-dark mr-2" aria-hidden="true"></i></a>
                         <a href="#" data-toggle="modal" data-target="#delete{{ note.id }}"><i
