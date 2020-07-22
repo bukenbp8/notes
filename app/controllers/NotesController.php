@@ -1,5 +1,11 @@
 <?php
 
+namespace Controllers;
+
+use Core\Application;
+use Core\Validate;
+use Models\Notes;
+
 class NotesController extends Application
 {
     public function __construct()
@@ -51,7 +57,7 @@ class NotesController extends Application
 
     public function editNote($id)
     {
-        $p = $this->NotesModel->findNoteById($id);
+        $p = $this->Notes->findNoteById($id);
         $thisPost = makeArray($p[0]);
         $user = makeArray(currentUser());
 
@@ -74,7 +80,7 @@ class NotesController extends Application
                     ]
                 ]);
                 if ($validation->passed()) {
-                    $this->NotesModel->update($posted_values, $id);
+                    $this->Notes->update($posted_values, $id);
                     $location = ($posted_values['public'] == 0) ? 'privateNotes' : '';
                     header("Location: /{$location}");
                 } else {
@@ -86,7 +92,7 @@ class NotesController extends Application
                 $errorMsg = [];
             }
 
-            $note = $this->NotesModel->findById($id);
+            $note = $this->Notes->findById($id);
 
             $title = 'Edit Note';
 
@@ -99,14 +105,14 @@ class NotesController extends Application
     public function deleteNote($id)
     {
 
-        $n = $this->NotesModel->findNoteById($id);
+        $n = $this->Notes->findNoteById($id);
         $thisPost = makeArray($n[0]);
         $user = makeArray(currentUser());
 
         //only the creater of notes can delete
         if ($thisPost['user_id'] == $user['id']) {
             $location = ($thisPost['public'] == 0) ? 'privateNotes' : '';
-            $this->NotesModel->deleteNote($id);
+            $this->Notes->deleteNote($id);
             header("Location: /{$location}");
         } else {
             header("Location: /restricted");
@@ -115,7 +121,7 @@ class NotesController extends Application
 
     public function privateNotes()
     {
-        $notes = $this->NotesModel->showPrivateNotes();
+        $notes = $this->Notes->showPrivateNotes();
 
         $title = 'Private Notes';
 

@@ -2,7 +2,7 @@
 
 define("DEBUG", true);
 
-define("BASE_URL", "http://localhost:8000");
+define("BASE_URL", "localhost:8000");
 
 // database data
 define("DB_NAME", "notes");

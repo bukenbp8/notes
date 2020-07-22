@@ -1,5 +1,8 @@
 <?php
 
+namespace Core;
+
+
 class Validate
 {
     private $_passed = true, $_errors = [], $_db = null;
@@ -55,10 +58,9 @@ class Validate
                             }
                             break;
 
-                        case 'unique_update':
-                            $query = $this->_db->query("SELECT * FROM users WHERE id != ? AND {$item} = ?", $value);
-                            dnd($item);
-                            if ($query->count()) {
+                        case 'unique_email':
+                            $check = $this->_db->query("SELECT * FROM users WHERE id != ? AND email = ?", [$_POST['id'], $value]);
+                            if ($check->count()) {
                                 $this->addError(["{$display} already exists. Please choose another {$display}.", $item]);
                             }
                             break;
@@ -67,6 +69,18 @@ class Validate
                             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                                 $this->addError(["{$display} must be a valid email address.", $item]);
                             }
+                            break;
+
+                        case 'correct_pwd':
+                            if (isset($_POST['password'])) {
+                                $password = $_POST['password'];
+                            } else {
+                                $password = '';
+                            }
+                            $check = $this->_db->query("SELECT password FROM users WHERE {$item} = ?", [$value], true)->results();
+                            if (!(password_verify($password, $check[0]['password']))) {
+                                $this->addError(["Wrong Password. Please try again"]);
+                            };
                             break;
                     }
                 }

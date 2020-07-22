@@ -1,5 +1,11 @@
 <?php
 
+namespace Models;
+
+use Core\Model;
+use Core\Session;
+use Core\Cookie;
+
 class Users extends Model
 {
     private $_sessionName, $_cookieName;

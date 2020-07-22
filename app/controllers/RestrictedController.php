@@ -1,5 +1,9 @@
 <?php
 
+namespace Controllers;
+
+use Core\Application;
+
 class RestrictedController extends Application
 {
 

@@ -1,122 +1,122 @@
 default:
-  method: "GET"
-  route: "/"
-  controller: "HomeController"
-  action: "publicNotes"
+  method: 'GET'
+  route: '/'
+  controller: 'Controllers\HomeController'
+  action: 'publicNotes'
   
 newNote:
-  method: "GET|POST"
-  route: "/newNote"
-  controller: "NotesController"
-  action: "newNote"
+  method: 'GET|POST'
+  route: '/newNote'
+  controller: 'Controllers\NotesController'
+  action: 'newNote'
 
 privateNotes:
-  method: "GET"
-  route: "/privateNotes"
-  controller: "NotesController"
-  action: "privateNotes"
+  method: 'GET'
+  route: '/privateNotes'
+  controller: 'Controllers\NotesController'
+  action: 'privateNotes'
 
 editNote:
-  method: "GET|POST"
-  route: "/editNote/[i:id]"
-  controller: "NotesController"
-  action: "editNote"
+  method: 'GET|POST'
+  route: '/editNote/[i:id]'
+  controller: 'Controllers\NotesController'
+  action: 'editNote'
 
 deleteNote:
-  method: "GET"
-  route: "/deleteNote/[i:id]"
-  controller: "NotesController"
-  action: "deleteNote"
+  method: 'GET'
+  route: '/deleteNote/[i:id]'
+  controller: 'Controllers\NotesController'
+  action: 'deleteNote'
 
 editUser:
-  method: "GET|POST"
-  route: "/user/edit/[i:id]"
-  controller: "AdminController"
-  action: "editUser"
+  method: 'GET|POST'
+  route: '/user/edit/[i:id]'
+  controller: 'Controllers\AdminController'
+  action: 'editUser'
 
 deleteUser:
-  method: "GET"
-  route: "/user/delete/[i:id]"
-  controller: "AdminController"
-  action: "deleteUser"
+  method: 'GET'
+  route: '/user/delete/[i:id]'
+  controller: 'Controllers\AdminController'
+  action: 'deleteUser'
 
 fourOFour:
-  method: "GET"
-  route: "/404"
-  controller: "AuthController"
-  action: "fourOFour"
+  method: 'GET'
+  route: '/404'
+  controller: 'Controllers\AuthController'
+  action: 'fourOFour'
 
 login:
-  method: "GET|POST"
-  route: "/login"
-  controller: "AuthController"
-  action: "login"
+  method: 'GET|POST'
+  route: '/login'
+  controller: 'Controllers\AuthController'
+  action: 'login'
 
 logout:
-  method: "GET|POST"
-  route: "/logout"
-  controller: "AuthController"
-  action: "logout"
+  method: 'GET|POST'
+  route: '/logout'
+  controller: 'Controllers\AuthController'
+  action: 'logout'
 
 register:
-  method: "GET|POST"
-  route: "/register"
-  controller: "AuthController"
-  action: "register"
+  method: 'GET|POST'
+  route: '/register'
+  controller: 'Controllers\AuthController'
+  action: 'register'
 
 registerinfo:
-  method: "GET"
-  route: "/registerinfo"
-  controller: "AuthController"
-  action: "registerinfo"
+  method: 'GET'
+  route: '/registerinfo'
+  controller: 'Controllers\AuthController'
+  action: 'registerinfo'
 
 verify:
-  method: "GET"
-  route: "/verify/[i:id]/[a:key]"
-  controller: "AuthController"
-  action: "verify"
+  method: 'GET'
+  route: '/verify/[i:id]/[a:key]'
+  controller: 'Controllers\AuthController'
+  action: 'verify'
 
 resetPassword:
-  method: "GET|POST"
-  route: "/reset/[i:id]/[a:key]"
-  controller: "AuthController"
-  action: "resetPassword"
+  method: 'GET|POST'
+  route: '/reset/[i:id]/[a:key]'
+  controller: 'Controllers\AuthController'
+  action: 'resetPassword'
 
 forgottenpw:
-  method: "GET|POST"
-  route: "/forgottenpw"
-  controller: "AuthController"
-  action: "forgottenpw"
+  method: 'GET|POST'
+  route: '/forgottenpw'
+  controller: 'Controllers\AuthController'
+  action: 'forgottenpw'
 
 pwinfo:
-  method: "GET"
-  route: "/pwinfo"
-  controller: "AuthController"
-  action: "pwinfo"
+  method: 'GET'
+  route: '/pwinfo'
+  controller: 'Controllers\AuthController'
+  action: 'pwinfo'
 
 restricted:
-  method: "GET"
-  route: "/restricted"
-  controller: "RestrictedController"
-  action: "restricted"
+  method: 'GET'
+  route: '/restricted'
+  controller: 'Controllers\RestrictedController'
+  action: 'restricted'
 
 profile:
-  method: "GET|POST"
-  route: "/profile"
-  controller: "ProfileController"
-  action: "profile"
+  method: 'GET|POST'
+  route: '/profile'
+  controller: 'Controllers\ProfileController'
+  action: 'profile'
 
 deleteAccount:
-  method: "GET"
-  route: "/deleteAccount/[i:id]"
-  controller: "ProfileController"
-  action: "deleteAccount"
+  method: 'GET'
+  route: '/deleteAccount/[i:id]'
+  controller: 'Controllers\ProfileController'
+  action: 'deleteAccount'
 
 dashboard:
-  method: "GET"
-  route: "/dashboard"
-  controller: "AdminController"
-  action: "dashboard"
+  method: 'GET'
+  route: '/dashboard'
+  controller: 'Controllers\AdminController'
+  action: 'dashboard'
 
 
 

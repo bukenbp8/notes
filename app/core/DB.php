@@ -1,11 +1,13 @@
 <?php
 
+namespace Core;
+
 class DB
 {
     private static $_instance = null;
     private $_pdo, $_query, $_error = false, $_result, $_count = 0, $_lastInsertID = null;
 
-    protected function __construct()
+    public function __construct()
     {
         $options = [
             \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
@@ -13,14 +15,14 @@ class DB
         ];
 
         try {
-            $this->_pdo = new PDO(
+            $this->_pdo = new \PDO(
                 'mysql:host=' . DB_HOST .
                     ';dbname=' . DB_NAME,
                 DB_USER,
                 DB_PASSWORD,
                 $options
             );
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             die($e->getMessage());
         }
     }
@@ -28,12 +30,12 @@ class DB
     public static function getInstance()
     {
         if (!isset(self::$_instance)) {
-            self::$_instance = new DB();
+            self::$_instance = new self();
         }
         return self::$_instance;
     }
 
-    public function query($sql, $params = [], $method = PDO::FETCH_OBJ)
+    public function query($sql, $params = [], $array = false)
     {
         $this->_error = false;
         if ($this->_query = $this->_pdo->prepare($sql)) {
@@ -45,7 +47,11 @@ class DB
                 }
             }
             if ($this->_query->execute()) {
-                $this->_result = $this->_query->fetchAll($method);
+                if ($array) {
+                    $this->_result = $this->_query->fetchAll(\PDO::FETCH_ASSOC);
+                } else {
+                    $this->_result = $this->_query->fetchALL(\PDO::FETCH_OBJ);
+                }
                 $this->_count = $this->_query->rowCount();
                 $this->_lastInsertID = $this->_pdo->lastInsertId();
             } else {
@@ -55,7 +61,7 @@ class DB
         return $this;
     }
 
-    protected function _read($table, $params = [])
+    protected function _read($table, $params = [], $array)
     {
         $conditionString = '';
         $bind = [];
@@ -93,24 +99,25 @@ class DB
             $limit = ' LIMIT ' . $params['limit'];
         }
         $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
-        if ($this->query($sql, $bind)) {
+
+        if ($this->query($sql, $bind, $array)) {
             if ($this->_result && !count($this->_result)) return false;
             return true;
         }
         return false;
     }
 
-    public function find($table, $params = [])
+    public function find($table, $params = [], $array = false)
     {
-        if ($this->_read($table, $params)) {
+        if ($this->_read($table, $params, $array)) {
             return $this->results();
         }
         return false;
     }
 
-    public function findFirst($table, $params = [])
+    public function findFirst($table, $params = [], $array = false)
     {
-        if ($this->_read($table, $params)) {
+        if ($this->_read($table, $params, $array)) {
             return $this->first();
         }
         return false;

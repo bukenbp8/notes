@@ -1,5 +1,7 @@
 <?php
 
+use Models\Users;
+
 function dnd($data)
 {
     echo '<pre>';

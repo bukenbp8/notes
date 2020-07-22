@@ -1,5 +1,12 @@
 <?php
 
+namespace Models;
+
+use Core\Cookie;
+use Core\Model;
+use Core\Session;
+
+
 class UserSessions extends Model
 {
     public function __construct()

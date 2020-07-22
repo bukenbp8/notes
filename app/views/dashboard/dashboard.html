@@ -3,33 +3,34 @@
 {% block content %}
 <h1>Hello Admin!</h1>
 
-<table class="table table-striped mt-5">
+<table class="table table-striped mt-5" id="target">
     <thead>
         <tr>
-            <th scope="col">Id</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Verified</th>
-            <th scope="col">Joined</th>
-            <th scope="col">User Role</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Verified</th>
+            <th>Joined</th>
+            <th>User Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
         {% if users %}
         {% for user in users %}
         <tr>
-            <th scope="row">{{ user.id }}</th>
-            <td>{{ user.fname }}</td>
-            <td>{{ user.lname }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.email_verified|replace({'0': 'No', '1': 'Yes'}) }}</td>
-            <td>{{ user.joined|date('d.m.Y') }}</td>
-            <td>{{ user.role }}</td>
-            <td><a href="/user/edit/{{ user.id }}" class="btn btn-primary">Edit</a></td>
-            <td><a href="#" data-toggle="modal" data-target="#delete{{ user.id }}" class="btn btn-danger">Delete</a>
+            <td data-title="Id">{{ user.id }}</td>
+            <td data-title="First Name">{{ user.fname }}</td>
+            <td data-title="Last Name">{{ user.lname }}</td>
+            <td data-title="Email">{{ user.email }}</td>
+            <td data-title="Verified">{{ user.email_verified|replace({'0': 'No', '1': 'Yes'}) }}</td>
+            <td data-title="Joined">{{ user.joined|date('d.m.Y') }}</td>
+            <td data-title="User Role">{{ user.role }}</td>
+            <td data-title=""><a href="/user/edit/{{ user.id }}" class="btn btn-primary">Edit</a></td>
+            <td data-title=""><a href="#" data-toggle="modal" data-target="#delete{{ user.id }}"
+                    class="btn btn-danger">Delete</a>
             </td>
         </tr>
 
@@ -59,4 +60,81 @@
         {% endif %}
     </tbody>
 </table>
+
+{% block javascript %}
+{{ parent() }}
+<script>
+    // $(window).on("load resize", function () {
+    //     if ($(window).width() < 992) {
+    //         $('#target').removeClass('table');
+    //     } else {
+    //         $('#target').addClass('table')
+    //     }
+    // })
+    let addTableClass = function () {
+        if (window.outerWidth < 992) {
+            document.querySelector('#target').classList.remove("table");
+        } else {
+            document.querySelector('#target').classList.add("table");
+        }
+    }
+    addEventListener('load', addTableClass);
+    addEventListener('resize', addTableClass);
+</script>
+{% endblock %}
+<style>
+    @media only screen and (max-width: 992px) {
+
+        /* Force table to not be like tables anymore */
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block;
+        }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        tr {
+            border: 1px solid #ccc;
+        }
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+            white-space: normal;
+            text-align: left;
+        }
+
+        td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        /*
+	Label the data
+	*/
+        td:before {
+            content: attr(data-title);
+        }
+    }
+</style>
 {% endblock %}

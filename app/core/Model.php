@@ -1,7 +1,10 @@
 <?php
+
+namespace Core;
+
 class Model
 {
-    protected $_db, $_table, $_modelName, $_softDelete = false, $_columnsNames = [];
+    protected $_db, $_table, $_modelName, $_columnsNames = [];
     public $id;
 
     public function __construct($table)
@@ -9,7 +12,7 @@ class Model
         $this->_db = DB::getInstance();
         $this->_table = $table;
         $this->_setTableColumns();
-        $this->_modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->_table)));
+        $this->_modelName = '\Models\\' . str_replace(' ', '', ucwords(str_replace('_', ' ', $this->_table)));
     }
 
     protected function _setTableColumns()
@@ -97,7 +100,7 @@ class Model
 
     public function data()
     {
-        $data = new stdClass();
+        $data = new \stdClass();
         foreach ($this->_columnsNames as $column) {
             $data->column = $this->column;
         }

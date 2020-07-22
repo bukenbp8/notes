@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 use Symfony\Component\Yaml\Parser;
 
 class Router
@@ -8,11 +10,11 @@ class Router
     public static function initRouter()
     {
 
-        $router = new AltoRouter();
+        $router = new \AltoRouter();
 
         $yaml = new Parser();
 
-        $routes = $yaml->parse(file_get_contents(ROOT . DS . 'config' . DS . 'routes.yaml'));
+        $routes = $yaml->parse(file_get_contents('config/routes.yaml'));
 
         foreach ($routes as $name => $route) {
             $router->map($route['method'], $route['route'], array('c' => $route['controller'], 'a' => $route['action']), $name);

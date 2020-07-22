@@ -1,5 +1,8 @@
 <?php
 
+namespace Core;
+
+
 class Application
 {
     public $model;
@@ -47,10 +50,11 @@ class Application
         $this->twig->addGlobal('admin', $admin);
     }
 
-    protected function load_model($model)
+    protected function load_model($model, $namespace = 'Models\\')
     {
-        if (class_exists($model)) {
-            $this->{$model . 'Model'} = new $model(strtolower($model));
+        $modelPath = $namespace . $model;
+        if (class_exists($modelPath)) {
+            $this->{$model} = new $modelPath();
         }
     }
 }

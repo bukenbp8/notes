@@ -1,5 +1,10 @@
 <?php
 
+namespace Controllers;
+
+use Core\Application;
+use Core\Validate;
+
 class AdminController extends Application
 {
     public function __construct()
@@ -7,6 +12,7 @@ class AdminController extends Application
         parent::__construct();
 
         $this->load_model('Users');
+
         $user = (array)currentUser();
 
         if ($user['role'] != 'Admin') {
@@ -17,14 +23,14 @@ class AdminController extends Application
     public function dashboard()
     {
         // grabs all users
-        $users = $this->UsersModel->find();
+        $users = $this->Users->find();
 
         echo $this->twig->render('/dashboard/dashboard.html', ['users' => $users]);
     }
 
     public function editUser($id)
     {
-        $user = $this->UsersModel->findById($id);
+        $user = $this->Users->findById($id);
 
         if ($_POST) {
             $validation = new Validate();
@@ -43,11 +49,12 @@ class AdminController extends Application
                 'email' => [
                     'display' => 'Email',
                     'required' => true,
-                    'valid_email' => true
+                    'valid_email' => true,
+                    'unique_email' => 'email'
                 ]
             ]);
             if ($validation->passed()) {
-                $this->UsersModel->update($posted_values, $id);
+                $this->Users->update($posted_values, $id);
                 header('Location: /dashboard');
             } else {
                 $errorMsg = $validation->errors();
@@ -63,7 +70,7 @@ class AdminController extends Application
 
     public function deleteUser($id)
     {
-        $this->UsersModel->delete($id);
+        $this->Users->delete($id);
         header('Location: /dashboard');
     }
 }

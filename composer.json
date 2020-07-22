@@ -1,4 +1,7 @@
 {
+    "config": {
+        "optimize-autoloader": true
+    },
     "require": {
         "twig/twig": "^3.0",
         "altorouter/altorouter": "^2.0",
@@ -6,10 +9,10 @@
         "swiftmailer/swiftmailer": "^6.2"
     },
     "autoload": {
-        "classmap": [
-            "app/controllers",
-            "app/core",
-            "app/models"
-        ]
+        "psr-4": {
+            "Controllers\\": "app/controllers/",
+            "Core\\": "app/core/",
+            "Models\\": "app/models/"
+        }
     }
 }

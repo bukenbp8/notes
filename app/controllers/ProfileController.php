@@ -1,5 +1,10 @@
 <?php
 
+namespace Controllers;
+
+use Core\Application;
+use Core\Validate;
+
 class ProfileController extends Application
 {
     protected $_user;
@@ -39,7 +44,7 @@ class ProfileController extends Application
                 ]
             ]);
             if ($validation->passed()) {
-                $this->UsersModel->update(['email' => $posted_values['email']], $this->_user['id']);
+                $this->Users->update(['email' => $posted_values['email']], $this->_user['id']);
                 $emailMsg = 'Your email was changed';
             } else {
                 $errorEmail = $validation->errors();
@@ -66,7 +71,7 @@ class ProfileController extends Application
             ]);
             if ($validation->passed()) {
                 $hashedPw = password_hash($posted_values['password'], PASSWORD_DEFAULT);
-                $this->UsersModel->update(['password' => $hashedPw], $this->_user['id']);
+                $this->Users->update(['password' => $hashedPw], $this->_user['id']);
                 $pwMsg = 'Your password was changed';
             } else {
                 $errorPw = $validation->errors();
@@ -97,7 +102,7 @@ class ProfileController extends Application
     public function deleteAccount($id)
     {
         if ($this->user['id'] == $id) {
-            $this->UsersModel->delete($id);
+            $this->Users->delete($id);
             currentUser()->logout();
             header('Location: /register');
         } else {
